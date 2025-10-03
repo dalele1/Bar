@@ -11,24 +11,20 @@
         background-color: #f7f7f7;
     }
 
-    h1 {
-        text-align: center;
-    }
-
     .buttons {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+        gap: 10px;
         margin-bottom: 20px;
     }
 
     button {
-        font-size: 20px;
-        padding: 20px;
+        font-size: 18px;
+        padding: 15px;
         background-color: #007bff;
         color: white;
         border: none;
-        border-radius: 10px;
+        border-radius: 8px;
         cursor: pointer;
         width: 100%;
     }
@@ -37,22 +33,18 @@
         background-color: #0056b3;
     }
 
-    .selected {
-        background-color: #28a745 !important;
-    }
-
     ul {
         list-style: none;
         padding: 0;
     }
 
     li {
-        font-size: 20px;
+        font-size: 18px;
         margin: 5px 0;
     }
 
     .total {
-        font-size: 24px;
+        font-size: 22px;
         font-weight: bold;
         margin-top: 20px;
         text-align: center;
@@ -61,21 +53,18 @@
 </head>
 <body>
 
-<h1>Bar Getränke App</h1>
-
 <div class="buttons">
-    <button onclick="addDrink('Bier', 3)">Bier - 3€</button>
-    <button onclick="addDrink('Wein', 4)">Wein - 4€</button>
-    <button onclick="addDrink('Whiskey', 5)">Whiskey - 5€</button>
-    <button onclick="addDrink('Vodka', 4.5)">Vodka - 4.5€</button>
-    <button onclick="addDrink('Rum', 4)">Rum - 4€</button>
-    <button onclick="addDrink('Gin', 4.5)">Gin - 4.5€</button>
-    <button onclick="addDrink('Cocktail', 6)">Cocktail - 6€</button>
-    <button onclick="addDrink('Cola', 2)">Cola - 2€</button>
-    <button onclick="addDrink('Wasser', 1)">Wasser - 1€</button>
-    <button onclick="addDrink('Saft', 2.5)">Saft - 2.5€</button>
-    <button onclick="addDrink('Energydrink', 3)">Energydrink - 3€</button>
-    <button onclick="addDrink('Cider', 3.5)">Cider - 3.5€</button>
+    <button onclick="addDrink('Longdrink', 16)">Longdrink</button>
+    <button onclick="addDrink('Cocktails', 17)">Cocktails</button>
+    <button onclick="addDrink('Moretti', 7)">Moretti</button>
+    <button onclick="addDrink('Cocona', 8)">Cocona</button>
+    <button onclick="addDrink('Aperitif', 13)">Aperitif</button>
+    <button onclick="addDrink('Wein', 9)">Wein</button>
+    <button onclick="addDrink('Wein (Flasche)', 54)">Wein (Flasche)</button>
+    <button onclick="addDrink('Whiteclaw', 7)">Whiteclaw</button>
+    <button onclick="addDrink('Shots', 5)">Shots</button>
+    <button onclick="addDrink('Softdrinks', 5)">Softdrinks</button>
+    <button onclick="addDrink('Wasser', 4)">Wasser</button>
 </div>
 
 <h2>Bestellte Getränke:</h2>
@@ -90,7 +79,7 @@ function addDrink(name, price) {
     total += price;
     const list = document.getElementById("drinkList");
     const li = document.createElement("li");
-    li.textContent = `${name} - ${price}€`;
+    li.textContent = `${name} ${price}€`;
     list.appendChild(li);
     document.getElementById("totalPrice").textContent = total.toFixed(2);
 }
