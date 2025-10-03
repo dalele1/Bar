@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Bar Getränke App</title>
 <style>
     body {
@@ -27,6 +27,7 @@
         border-radius: 8px;
         cursor: pointer;
         width: 100%;
+        touch-action: manipulation;
     }
 
     button:hover {
@@ -93,7 +94,7 @@
 <div class="total">Total: <span id="totalPrice">0</span> CHF</div>
 
 <div class="action-buttons">
-    <button onclick="showAndClear()">Clear</button>
+    <button onclick="clearList()">Clear</button>
 </div>
 
 <script>
@@ -101,17 +102,32 @@ let total = 0;
 let drinks = [];
 
 function addDrink(name, price) {
-    total += price;
-    drinks.push({name, price});
+    const existing = drinks.find(d => d.name === name);
+    if (existing) {
+        existing.count += 1;
+    } else {
+        drinks.push({name, price, count: 1});
+    }
+    updateList();
+}
+
+function updateList() {
     const list = document.getElementById("drinkList");
-    const li = document.createElement("li");
-    li.textContent = `${name} ${price} CHF`;
-    list.appendChild(li);
+    list.innerHTML = "";
+    total = 0;
+    drinks.forEach(drink => {
+        const li = document.createElement("li");
+        const drinkTotal = drink.price * drink.count;
+        li.textContent = drink.count > 1 
+            ? `${drink.count} ${drink.name} ${drink.price} CHF`
+            : `${drink.name} ${drink.price} CHF`;
+        list.appendChild(li);
+        total += drinkTotal;
+    });
     document.getElementById("totalPrice").textContent = total.toFixed(2);
 }
 
-function showAndClear() {
-    // Einfach zurücksetzen ohne Dialog
+function clearList() {
     total = 0;
     drinks = [];
     document.getElementById("drinkList").innerHTML = "";
