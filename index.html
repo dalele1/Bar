@@ -1,134 +1,100 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Bar Kasse</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bar Getränke App</title>
+<style>
     body {
-      font-family: sans-serif;
-      padding: 20px;
-      background: #f7f7f7;
+        font-family: Arial, sans-serif;
+        padding: 10px;
+        background-color: #f7f7f7;
     }
+
     h1 {
-      text-align: center;
+        text-align: center;
     }
-    .drinks {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 20px;
+
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
     }
-    .drinks button {
-      margin: 10px;
-      padding: 15px 25px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background: #4caf50;
-      color: white;
-      cursor: pointer;
-      transition: background 0.2s;
+
+    button {
+        font-size: 20px;
+        padding: 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100%;
     }
-    .drinks button:hover {
-      background: #45a049;
+
+    button:hover {
+        background-color: #0056b3;
     }
+
+    .selected {
+        background-color: #28a745 !important;
+    }
+
     ul {
-      list-style: none;
-      padding: 0;
+        list-style: none;
+        padding: 0;
     }
+
     li {
-      background: white;
-      padding: 10px;
-      margin: 5px 0;
-      border-radius: 6px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-between;
+        font-size: 20px;
+        margin: 5px 0;
     }
+
     .total {
-      margin-top: 20px;
-      font-size: 24px;
-      font-weight: bold;
-      text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: center;
     }
-    .actions {
-      margin-top: 20px;
-      text-align: center;
-    }
-    .actions button {
-      margin: 5px;
-      padding: 10px 20px;
-      font-size: 14px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .reset {
-      background: #e74c3c;
-      color: white;
-    }
-    .reset:hover {
-      background: #c0392b;
-    }
-  </style>
+</style>
 </head>
 <body>
-  <h1>🍹 Bar Kasse</h1>
-  
-  <div class="drinks">
-    <button onclick="addDrink('Bier', 4.50)">Bier (4.50)</button>
-    <button onclick="addDrink('Wein', 5.00)">Wein (5.00)</button>
-    <button onclick="addDrink('Cocktail', 9.00)">Cocktail (9.00)</button>
-    <button onclick="addDrink('Softdrink', 3.00)">Softdrink (3.00)</button>
-    <button onclick="addDrink('Whisky', 12.00)">Whisky (12.00)</button>
-  </div>
-  
-  <ul id="order"></ul>
-  
-  <div class="total">Total: <span id="total">0.00</span> CHF</div>
-  
-  <div class="actions">
-    <button class="reset" onclick="clearOrder()">🗑 Bestellung löschen</button>
-  </div>
-  
-  <script>
-    let order = JSON.parse(localStorage.getItem("order")) || [];
-    let total = parseFloat(localStorage.getItem("total")) || 0;
 
-    function renderOrder() {
-      const list = document.getElementById("order");
-      list.innerHTML = "";
-      order.forEach(item => {
-        const li = document.createElement("li");
-        li.innerHTML = `<span>${item.name}</span><span>${item.price.toFixed(2)} CHF</span>`;
-        list.appendChild(li);
-      });
-      document.getElementById("total").textContent = total.toFixed(2);
-    }
+<h1>Bar Getränke App</h1>
 
-    function addDrink(name, price) {
-      order.push({ name, price });
-      total += price;
-      saveOrder();
-      renderOrder();
-    }
+<div class="buttons">
+    <button onclick="addDrink('Bier', 3)">Bier - 3€</button>
+    <button onclick="addDrink('Wein', 4)">Wein - 4€</button>
+    <button onclick="addDrink('Whiskey', 5)">Whiskey - 5€</button>
+    <button onclick="addDrink('Vodka', 4.5)">Vodka - 4.5€</button>
+    <button onclick="addDrink('Rum', 4)">Rum - 4€</button>
+    <button onclick="addDrink('Gin', 4.5)">Gin - 4.5€</button>
+    <button onclick="addDrink('Cocktail', 6)">Cocktail - 6€</button>
+    <button onclick="addDrink('Cola', 2)">Cola - 2€</button>
+    <button onclick="addDrink('Wasser', 1)">Wasser - 1€</button>
+    <button onclick="addDrink('Saft', 2.5)">Saft - 2.5€</button>
+    <button onclick="addDrink('Energydrink', 3)">Energydrink - 3€</button>
+    <button onclick="addDrink('Cider', 3.5)">Cider - 3.5€</button>
+</div>
 
-    function clearOrder() {
-      if (confirm("Bestellung wirklich löschen?")) {
-        order = [];
-        total = 0;
-        saveOrder();
-        renderOrder();
-      }
-    }
+<h2>Bestellte Getränke:</h2>
+<ul id="drinkList"></ul>
 
-    function saveOrder() {
-      localStorage.setItem("order", JSON.stringify(order));
-      localStorage.setItem("total", total);
-    }
+<div class="total">Total: <span id="totalPrice">0</span>€</div>
 
-    // Initial render
-    renderOrder();
-  </script>
+<script>
+let total = 0;
+
+function addDrink(name, price) {
+    total += price;
+    const list = document.getElementById("drinkList");
+    const li = document.createElement("li");
+    li.textContent = `${name} - ${price}€`;
+    list.appendChild(li);
+    document.getElementById("totalPrice").textContent = total.toFixed(2);
+}
+</script>
+
 </body>
 </html>
