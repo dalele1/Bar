@@ -72,6 +72,8 @@
     }
 
     li {
+        display: flex;
+        justify-content: space-between; /* Name links, Preis rechts */
         font-size: 18px;
         margin: 5px 0;
         color: white;
@@ -131,9 +133,18 @@ function updateList() {
     drinks.forEach(drink => {
         const li = document.createElement("li");
         const drinkTotal = drink.price * drink.count;
-        li.textContent = drink.count > 1 
-            ? `${drink.count}× ${drink.name} ${drinkTotal} CHF`
-            : `${drink.name} ${drink.price} CHF`;
+
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = drink.count > 1 
+            ? `${drink.count}× ${drink.name}`
+            : drink.name;
+
+        const priceSpan = document.createElement("span");
+        priceSpan.textContent = `${drinkTotal.toFixed(2)} CHF`;
+
+        li.appendChild(nameSpan);
+        li.appendChild(priceSpan);
+
         list.appendChild(li);
         total += drinkTotal;
     });
