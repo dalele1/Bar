@@ -8,7 +8,12 @@
     body {
         font-family: Arial, sans-serif;
         padding: 10px;
-        background-color: #f7f7f7;
+        background-color: #2c2c2c; /* grauschwarz */
+        color: white;
+    }
+
+    h2 {
+        color: white;
     }
 
     .buttons {
@@ -21,7 +26,6 @@
     button {
         font-size: 18px;
         padding: 15px;
-        background-color: #007bff;
         color: white;
         border: none;
         border-radius: 8px;
@@ -31,8 +35,21 @@
     }
 
     button:hover {
-        background-color: #0056b3;
+        opacity: 0.9;
     }
+
+    .btn-longdrink { background-color: #007bff; }
+    .btn-flying { background-color: #6f42c1; }
+    .btn-cocktail { background-color: #fd7e14; }
+    .btn-moretti { background-color: #17a2b8; }
+    .btn-corona { background-color: #20c997; }
+    .btn-aperitif { background-color: #ffc107; color: black; }
+    .btn-wein-glas { background-color: #dc3545; }
+    .btn-wein-flasche { background-color: #343a40; }
+    .btn-whiteclaw { background-color: #6610f2; }
+    .btn-shot { background-color: #e83e8c; }
+    .btn-softdrink { background-color: #28a745; }
+    .btn-wasser { background-color: #0dcaf0; }
 
     .action-buttons {
         margin-top: 20px;
@@ -40,17 +57,13 @@
 
     .action-buttons button {
         width: 100%;
-        font-size: 18px;
+        font-size: 22px; /* grössere Schrift */
         padding: 15px;
-        background-color: #28a745;
+        background-color: #dc3545;
         color: white;
         border: none;
         border-radius: 8px;
         cursor: pointer;
-    }
-
-    .action-buttons button:hover {
-        opacity: 0.9;
     }
 
     ul {
@@ -61,6 +74,7 @@
     li {
         font-size: 18px;
         margin: 5px 0;
+        color: white;
     }
 
     .total {
@@ -74,18 +88,18 @@
 <body>
 
 <div class="buttons">
-    <button onclick="addDrink('Longdrink', 16)">Longdrink</button>
-    <button onclick="addDrink('Flying Hirsch', 18)">Flying Hirsch</button>
-    <button onclick="addDrink('Cocktail', 17)">Cocktail</button>
-    <button onclick="addDrink('Moretti', 7)">Moretti</button>
-    <button onclick="addDrink('Corona', 8)">Corona</button>
-    <button onclick="addDrink('Aperitif', 13)">Aperitif</button>
-    <button onclick="addDrink('Wein (Glas)', 9)">Wein (Glas)</button>
-    <button onclick="addDrink('Wein (Flasche)', 54)">Wein (Flasche)</button>
-    <button onclick="addDrink('Whiteclaw', 7)">Whiteclaw</button>
-    <button onclick="addDrink('Shot', 5)">Shot</button>
-    <button onclick="addDrink('Softdrink', 5)">Softdrink</button>
-    <button onclick="addDrink('Wasser', 4)">Wasser</button>
+    <button class="btn-longdrink" onclick="addDrink('Longdrink', 16)">Longdrink</button>
+    <button class="btn-flying" onclick="addDrink('Flying Hirsch', 18)">Flying Hirsch</button>
+    <button class="btn-cocktail" onclick="addDrink('Cocktail', 17)">Cocktail</button>
+    <button class="btn-moretti" onclick="addDrink('Moretti', 7)">Moretti</button>
+    <button class="btn-corona" onclick="addDrink('Corona', 8)">Corona</button>
+    <button class="btn-aperitif" onclick="addDrink('Aperitif', 13)">Aperitif</button>
+    <button class="btn-wein-glas" onclick="addDrink('Wein (Glas)', 9)">Wein (Glas)</button>
+    <button class="btn-wein-flasche" onclick="addDrink('Wein (Flasche)', 54)">Wein (Flasche)</button>
+    <button class="btn-whiteclaw" onclick="addDrink('Whiteclaw', 7)">Whiteclaw</button>
+    <button class="btn-shot" onclick="addDrink('Shot', 5)">Shot</button>
+    <button class="btn-softdrink" onclick="addDrink('Softdrink', 5)">Softdrink</button>
+    <button class="btn-wasser" onclick="addDrink('Wasser', 4)">Wasser</button>
 </div>
 
 <h2>Bestellte Getränke:</h2>
