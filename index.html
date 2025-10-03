@@ -111,20 +111,7 @@ function addDrink(name, price) {
 }
 
 function showAndClear() {
-    if (drinks.length === 0) {
-        alert("Keine Getränke bestellt.");
-        return;
-    }
-
-    let invoice = "Bestellte Getränke:\n\n";
-    drinks.forEach(drink => {
-        invoice += `${drink.name} ${drink.price} CHF\n`;
-    });
-    invoice += `\nTotal: ${total.toFixed(2)} CHF`;
-
-    alert(invoice);
-
-    // Zurücksetzen
+    // Einfach zurücksetzen ohne Dialog
     total = 0;
     drinks = [];
     document.getElementById("drinkList").innerHTML = "";
