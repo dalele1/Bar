@@ -119,7 +119,7 @@ function updateList() {
         const li = document.createElement("li");
         const drinkTotal = drink.price * drink.count;
         li.textContent = drink.count > 1 
-            ? `${drink.count} ${drink.name} ${drink.price} CHF`
+            ? `${drink.count}× ${drink.name} ${drinkTotal} CHF`
             : `${drink.name} ${drink.price} CHF`;
         list.appendChild(li);
         total += drinkTotal;
