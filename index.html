@@ -33,6 +33,25 @@
         background-color: #0056b3;
     }
 
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .action-buttons button {
+        flex: 1;
+        background-color: #28a745;
+    }
+
+    .action-buttons button.clear {
+        background-color: #dc3545;
+    }
+
+    .action-buttons button:hover {
+        opacity: 0.9;
+    }
+
     ul {
         list-style: none;
         padding: 0;
@@ -72,16 +91,45 @@
 
 <div class="total">Total: <span id="totalPrice">0</span>€</div>
 
+<div class="action-buttons">
+    <button onclick="showInvoice()">Abrechnung</button>
+    <button class="clear" onclick="clearList()">Zurücksetzen</button>
+</div>
+
 <script>
 let total = 0;
+let drinks = [];
 
 function addDrink(name, price) {
     total += price;
+    drinks.push({name, price});
     const list = document.getElementById("drinkList");
     const li = document.createElement("li");
     li.textContent = `${name} ${price}€`;
     list.appendChild(li);
     document.getElementById("totalPrice").textContent = total.toFixed(2);
+}
+
+function clearList() {
+    total = 0;
+    drinks = [];
+    document.getElementById("drinkList").innerHTML = "";
+    document.getElementById("totalPrice").textContent = total.toFixed(2);
+}
+
+function showInvoice() {
+    if (drinks.length === 0) {
+        alert("Keine Getränke bestellt.");
+        return;
+    }
+
+    let invoice = "Bestellte Getränke:\n\n";
+    drinks.forEach(drink => {
+        invoice += `${drink.name} ${drink.price}€\n`;
+    });
+    invoice += `\nTotal: ${total.toFixed(2)}€`;
+
+    alert(invoice);
 }
 </script>
 
