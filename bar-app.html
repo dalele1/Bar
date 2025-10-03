@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Bar Kasse</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f7f7f7;
+    }
+    h1 {
+      text-align: center;
+    }
+    .drinks {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .drinks button {
+      margin: 10px;
+      padding: 15px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #4caf50;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .drinks button:hover {
+      background: #45a049;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: white;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+    }
+    .total {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .actions {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .actions button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .reset {
+      background: #e74c3c;
+      color: white;
+    }
+    .reset:hover {
+      background: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍹 Bar Kasse</h1>
+  
+  <div class="drinks">
+    <button onclick="addDrink('Bier', 4.50)">Bier (4.50)</button>
+    <button onclick="addDrink('Wein', 5.00)">Wein (5.00)</button>
+    <button onclick="addDrink('Cocktail', 9.00)">Cocktail (9.00)</button>
+    <button onclick="addDrink('Softdrink', 3.00)">Softdrink (3.00)</button>
+    <button onclick="addDrink('Whisky', 12.00)">Whisky (12.00)</button>
+  </div>
+  
+  <ul id="order"></ul>
+  
+  <div class="total">Total: <span id="total">0.00</span> CHF</div>
+  
+  <div class="actions">
+    <button class="reset" onclick="clearOrder()">🗑 Bestellung löschen</button>
+  </div>
+  
+  <script>
+    let order = JSON.parse(localStorage.getItem("order")) || [];
+    let total = parseFloat(localStorage.getItem("total")) || 0;
+
+    function renderOrder() {
+      const list = document.getElementById("order");
+      list.innerHTML = "";
+      order.forEach(item => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span>${item.name}</span><span>${item.price.toFixed(2)} CHF</span>`;
+        list.appendChild(li);
+      });
+      document.getElementById("total").textContent = total.toFixed(2);
+    }
+
+    function addDrink(name, price) {
+      order.push({ name, price });
+      total += price;
+      saveOrder();
+      renderOrder();
+    }
+
+    function clearOrder() {
+      if (confirm("Bestellung wirklich löschen?")) {
+        order = [];
+        total = 0;
+        saveOrder();
+        renderOrder();
+      }
+    }
+
+    function saveOrder() {
+      localStorage.setItem("order", JSON.stringify(order));
+      localStorage.setItem("total", total);
+    }
+
+    // Initial render
+    renderOrder();
+  </script>
+</body>
+</html>
